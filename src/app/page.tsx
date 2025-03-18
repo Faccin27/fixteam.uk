@@ -7,6 +7,7 @@ import { motion } from "framer-motion"
 import { ChevronRight, Code, BotIcon as Robot, Globe, Users, Mail, ArrowRight } from "lucide-react"
 import img from "@/assets/img.png"
 import Navbar from "@/components/navbar"
+import Footer from "@/components/footer"
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false)
@@ -334,6 +335,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   )
 }
