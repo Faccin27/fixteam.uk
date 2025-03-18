@@ -16,17 +16,17 @@ export default function Footer() {
     {
       name: "Willian",
       image: willian,
-      url: "https://linkedin.com",
+      url: "https://www.linkedin.com/in/williangiovaninideitosi/",
     },
     {
       name: "Faccin",
       image: faccin,
-      url: "https://linkedin.com",
+      url: "https://www.linkedin.com/in/guilherme-faccin/",
     },
     {
       name: "Isaac",
       image: isac,
-      url: "https://linkedin.com",
+      url: "https://www.linkedin.com/in/isack-foster/",
     },
   ];
 

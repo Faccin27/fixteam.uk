@@ -16,7 +16,9 @@ export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -52,7 +54,10 @@ export default function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-300 mb-1"
+          >
             Your Name
           </label>
           <input
@@ -67,7 +72,10 @@ export default function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-300 mb-1"
+          >
             Your Email
           </label>
           <input
@@ -84,7 +92,10 @@ export default function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-1">
+        <label
+          htmlFor="subject"
+          className="block text-sm font-medium text-gray-300 mb-1"
+        >
           Subject
         </label>
         <select
@@ -104,7 +115,10 @@ export default function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1">
+        <label
+          htmlFor="message"
+          className="block text-sm font-medium text-gray-300 mb-1"
+        >
           Your Message
         </label>
         <textarea
@@ -132,7 +146,9 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-all flex items-center justify-center ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
+            className={`w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-all flex items-center justify-center ${
+              isSubmitting ? "opacity-70 cursor-not-allowed" : ""
+            }`}
           >
             {isSubmitting ? (
               <>
@@ -142,7 +158,14 @@ export default function ContactForm() {
                   fill="none"
                   viewBox="0 0 24 24"
                 >
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
                   <path
                     className="opacity-75"
                     fill="currentColor"

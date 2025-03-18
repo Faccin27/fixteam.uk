@@ -25,8 +25,6 @@ export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
   const { ip, loading, error, country } = geoModule();
 
-
-
   useEffect(() => {
     setIsVisible(true);
   }, []);
