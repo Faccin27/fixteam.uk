@@ -8,6 +8,7 @@ import { ChevronRight, Code, BotIcon as Robot, Globe, Users, Mail, ArrowRight } 
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import ServiceCard from "@/components/service-card"
+import ContactForm from "@/components/contact-form"
 import img from "@/assets/img.png"
 
 export default function Home() {
@@ -308,6 +309,7 @@ export default function Home() {
               <h3 className="text-2xl font-bold mb-6">Get in Touch</h3>
               <p className="text-gray-300 mb-8">Fill out the form and our team will get back to you within 24 hours.</p>
 
+              <ContactForm />
             </motion.div>
 
             <motion.div
