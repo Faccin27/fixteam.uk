@@ -6,6 +6,7 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { ChevronRight, Code, BotIcon as Robot, Globe, Users, Mail, ArrowRight } from "lucide-react"
 import img from "@/assets/img.png"
+import Navbar from "@/components/navbar"
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false)
@@ -21,6 +22,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 overflow-hidden">
+      <Navbar />
       <section className="relative min-h-screen pt-20 md:pt-0 flex items-center overflow-hidden pb-32 md:pb-16">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-blue-900/10 blur-3xl"></div>
