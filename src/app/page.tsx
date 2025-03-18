@@ -1,28 +1,36 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { motion } from "framer-motion"
-import { ChevronRight, Code, BotIcon as Robot, Globe, Users, Mail, ArrowRight } from "lucide-react"
-import Navbar from "@/components/navbar"
-import Footer from "@/components/footer"
-import ServiceCard from "@/components/service-card"
-import ContactForm from "@/components/contact-form"
-import Hero3DElement from "@/components/hero-3d-element"
-import img from "@/assets/img.png"
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import {
+  ChevronRight,
+  Code,
+  BotIcon as Robot,
+  Globe,
+  Users,
+  Mail,
+  ArrowRight,
+} from "lucide-react";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
+import ServiceCard from "@/components/service-card";
+import ContactForm from "@/components/contact-form";
+import Hero3DElement from "@/components/hero-3d-element";
+import img from "@/assets/img.png";
 
 export default function Home() {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true)
-  }, [])
+    setIsVisible(true);
+  }, []);
 
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 overflow-hidden">
@@ -46,7 +54,8 @@ export default function Home() {
                 Automating Your Future
               </h1>
               <p className="text-xl md:text-2xl mb-8 text-gray-300">
-                We build cutting-edge RPAs and websites that transform how businesses operate in the digital world.
+                We build cutting-edge RPAs and websites that transform how
+                businesses operate in the digital world.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
@@ -54,14 +63,20 @@ export default function Home() {
                   className="px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-all flex items-center justify-center group"
                 >
                   Our Services
-                  <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
+                  <ChevronRight
+                    className="ml-2 group-hover:translate-x-1 transition-transform"
+                    size={18}
+                  />
                 </Link>
                 <Link
                   href="#contact"
                   className="px-8 py-3 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg font-medium transition-all flex items-center justify-center group"
                 >
                   Get in Touch
-                  <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
+                  <ChevronRight
+                    className="ml-2 group-hover:translate-x-1 transition-transform"
+                    size={18}
+                  />
                 </Link>
               </div>
             </motion.div>
@@ -92,7 +107,10 @@ export default function Home() {
             className="flex flex-col items-center text-gray-400 hover:text-blue-400 transition-colors"
           >
             <span className="text-sm mb-2">Discover More</span>
-            <motion.div animate={{ y: [0, 10, 0] }} transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5 }}>
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5 }}
+            >
               <ArrowRight className="transform rotate-90" size={24} />
             </motion.div>
           </Link>
@@ -110,7 +128,8 @@ export default function Home() {
           >
             <h2 className="text-4xl font-bold mb-4">Our Services</h2>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              We specialize in creating custom solutions that automate processes and enhance your online presence.
+              We specialize in creating custom solutions that automate processes
+              and enhance your online presence.
             </p>
           </motion.div>
 
@@ -149,12 +168,14 @@ export default function Home() {
             >
               <h2 className="text-4xl font-bold mb-6">Who We Are</h2>
               <p className="text-xl text-gray-300 mb-6">
-                FixTeam is a team of passionate developers and automation experts dedicated to helping businesses
-                leverage technology to grow and succeed.
+                FixTeam is a team of passionate developers and automation
+                experts dedicated to helping businesses leverage technology to
+                grow and succeed.
               </p>
               <p className="text-lg text-gray-400 mb-8">
-                With years of experience in RPA development and web technologies, we create solutions that are not just
-                functional but also innovative and future-proof.
+                With years of experience in RPA development and web
+                technologies, we create solutions that are not just functional
+                but also innovative and future-proof.
               </p>
               <div className="flex items-center space-x-6">
                 <div className="flex items-center">
@@ -212,7 +233,8 @@ export default function Home() {
           >
             <h2 className="text-4xl font-bold mb-4">Our Process</h2>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              We follow a structured approach to deliver high-quality solutions that meet your specific requirements.
+              We follow a structured approach to deliver high-quality solutions
+              that meet your specific requirements.
             </p>
           </motion.div>
 
@@ -248,7 +270,9 @@ export default function Home() {
                 className="bg-gray-900 p-8 rounded-lg border border-gray-700 hover:border-purple-700/50 relative overflow-hidden group"
               >
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-purple-600/10 rounded-full blur-xl group-hover:bg-purple-600/20  transition-all duration-500"></div>
-                <span className="text-5xl font-bold text-purple-600/30 mb-4 block">{step.number}</span>
+                <span className="text-5xl font-bold text-purple-600/30 mb-4 block">
+                  {step.number}
+                </span>
                 <h3 className="text-2xl font-bold mb-2">{step.title}</h3>
                 <p className="text-gray-400">{step.description}</p>
               </motion.div>
@@ -271,16 +295,22 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to Transform Your Business?</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Ready to Transform Your Business?
+            </h2>
             <p className="text-xl text-gray-300 mb-8">
-              Let's discuss how our RPA and web development services can help you achieve your business goals.
+              Let's discuss how our RPA and web development services can help
+              you achieve your business goals.
             </p>
             <Link
               href="#contact"
               className="px-8 py-4 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium text-lg transition-all inline-flex items-center group"
             >
               Get Started Today
-              <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+              <ChevronRight
+                className="ml-2 group-hover:translate-x-1 transition-transform"
+                size={20}
+              />
             </Link>
           </motion.div>
         </div>
@@ -297,7 +327,8 @@ export default function Home() {
           >
             <h2 className="text-4xl font-bold mb-4">Contact Us</h2>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Have a project in mind? Get in touch with us to discuss how we can help.
+              Have a project in mind? Get in touch with us to discuss how we can
+              help.
             </p>
           </motion.div>
 
@@ -309,7 +340,10 @@ export default function Home() {
               transition={{ duration: 0.6 }}
             >
               <h3 className="text-2xl font-bold mb-6">Get in Touch</h3>
-              <p className="text-gray-300 mb-8">Fill out the form and our team will get back to you within 24 hours.</p>
+              <p className="text-gray-300 mb-8">
+                Fill out the form and our team will get back to you within 24
+                hours.
+              </p>
 
               <ContactForm />
             </motion.div>
@@ -336,7 +370,9 @@ export default function Home() {
                 </div>
 
                 <div className="mt-8 pt-8 border-t border-gray-700">
-                  <h4 className="font-bold text-lg mb-4">Frequently Asked Questions</h4>
+                  <h4 className="font-bold text-lg mb-4">
+                    Frequently Asked Questions
+                  </h4>
                   <div className="space-y-4">
                     {[
                       {
@@ -362,6 +398,5 @@ export default function Home() {
       </section>
       <Footer />
     </div>
-  )
+  );
 }
-
