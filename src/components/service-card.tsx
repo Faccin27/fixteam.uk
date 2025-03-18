@@ -19,11 +19,11 @@ export default function ServiceCard({ icon, title, description, delay = 0 }: Ser
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay, duration: 0.6 }}
-      className="bg-gray-900 p-8 rounded-lg border border-gray-700 hover:border-purple-500/50 transition-all group relative overflow-hidden"
+      className="bg-gray-900 p-8 rounded-lg border border-gray-700 hover:border-cyan-500/50 transition-all group relative overflow-hidden"
     >
-      <div className="absolute -right-20 -top-20 w-40 h-40 bg-purple-600/10 rounded-full blur-2xl group-hover:bg-purple-600/20 transition-all duration-500"></div>
+      <div className="absolute -right-20 -top-20 w-40 h-40 bg-cyan-600/10 rounded-full blur-2xl group-hover:bg-cyan-600/20 transition-all duration-500"></div>
 
-      <div className="w-16 h-16 bg-purple-600/20 rounded-lg flex items-center justify-center mb-6 text-purple-400 group-hover:bg-purple-600/30 transition-all">
+      <div className="w-16 h-16 bg-cyan-600/20 rounded-lg flex items-center justify-center mb-6 text-cyan-400 group-hover:bg-cyan-600/30 transition-all">
         {icon}
       </div>
 
@@ -32,7 +32,7 @@ export default function ServiceCard({ icon, title, description, delay = 0 }: Ser
 
       <Link
         href="#contact"
-        className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors group/link"
+        className="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors group/link"
       >
         Learn More
         <ArrowRight size={16} className="ml-2 group-hover/link:translate-x-1 transition-transform" />

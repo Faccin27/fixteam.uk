@@ -19,9 +19,13 @@ import ServiceCard from "@/components/service-card";
 import ContactForm from "@/components/contact-form";
 import Hero3DElement from "@/components/hero-3d-element";
 import img from "@/assets/img.png";
+import geoModule from "@/utils/useGeoLocation";
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
+  const { ip, loading, error, country } = geoModule();
+
+
 
   useEffect(() => {
     setIsVisible(true);
@@ -48,11 +52,12 @@ export default function Home() {
               animate={isVisible ? "visible" : "hidden"}
               variants={fadeIn}
               transition={{ duration: 0.8 }}
-              className="max-w-xl"
+              className="max-w-2xl"
             >
               <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600 ">
                 Automating Your Future
               </h1>
+
               <p className="text-xl md:text-2xl mb-8 text-gray-300">
                 We build cutting-edge RPAs and websites that transform how
                 businesses operate in the digital world.
@@ -267,10 +272,10 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.6 }}
-                className="bg-gray-900 p-8 rounded-lg border border-gray-700 hover:border-purple-700/50 relative overflow-hidden group"
+                className="bg-gray-900 p-8 rounded-lg border border-gray-700 hover:border-cyan-700/90 relative overflow-hidden group"
               >
-                <div className="absolute -right-4 -top-4 w-24 h-24 bg-purple-600/10 rounded-full blur-xl group-hover:bg-purple-600/20  transition-all duration-500"></div>
-                <span className="text-5xl font-bold text-purple-600/30 mb-4 block">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-600/20 rounded-full blur-xl group-hover:bg-cyan-600/30  transition-all duration-500"></div>
+                <span className="text-5xl font-bold text-cyan-600/80 mb-4 block">
                   {step.number}
                 </span>
                 <h3 className="text-2xl font-bold mb-2">{step.title}</h3>
@@ -365,8 +370,8 @@ export default function Home() {
                   </div>
                   <div>
                     <h4 className="font-bold text-lg">Email</h4>
-                    <p className="text-gray-400">contact@fixteam.com</p>
-                    <p className="text-gray-400">support@fixteam.com</p>
+                    <p className="text-gray-400">contact@fixteam.uk</p>
+                    <p className="text-gray-400">support@fixteam.uk</p>
                   </div>
                 </div>
 
