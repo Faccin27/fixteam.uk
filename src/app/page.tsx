@@ -299,9 +299,10 @@ export default function Home() {
               Ready to Transform Your Business?
             </h2>
             <p className="text-xl text-gray-300 mb-8">
-              Let's discuss how our RPA and web development services can help
-              you achieve your business goals.
+              Let&apos;s discuss how our RPA and web development services can
+              help you achieve your business goals.
             </p>
+
             <Link
               href="#contact"
               className="px-8 py-4 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium text-lg transition-all inline-flex items-center group"
