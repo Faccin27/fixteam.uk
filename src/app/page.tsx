@@ -9,6 +9,7 @@ import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import ServiceCard from "@/components/service-card"
 import ContactForm from "@/components/contact-form"
+import Hero3DElement from "@/components/hero-3d-element"
 import img from "@/assets/img.png"
 
 export default function Home() {
@@ -26,14 +27,14 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 overflow-hidden">
       <Navbar />
-      <section className="relative min-h-screen pt-20 md:pt-0 flex items-center overflow-hidden pb-20 md:pb-0">
+      <section className="relative min-h-screen pt-20 md:pt-0 flex items-center overflow-hidden pb-32 md:pb-16">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-blue-900/10 blur-3xl"></div>
           <div className="absolute blur-md inset-0 bg-cover bg-center opacity-20"></div>
         </div>
 
-        <div className="container mx-auto px-4 z-10 pt-4 md:pt-0  h-full">
-          <div className="flex flex-col lg:flex-row items-end justify-between gap-8 h-full ">
+        <div className="container mx-auto px-4 z-10 pt-4 md:pt-0">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
             <motion.div
               initial="hidden"
               animate={isVisible ? "visible" : "hidden"}
@@ -41,7 +42,7 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="max-w-xl"
             >
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600">
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600 ">
                 Automating Your Future
               </h1>
               <p className="text-xl md:text-2xl mb-8 text-gray-300">
@@ -69,10 +70,11 @@ export default function Home() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="w-full lg:w-1/2 relative mb-16 md:mb-0"
+              className="w-full lg:w-1/2 relative mb-16 md:mb-0 "
             >
               <div className="w-full h-full flex justify-center items-center">
-                <div className="w-full h-[300px] lg:h-[500px] relative flex justify-center items-center">
+                <div className="w-full h-[450px] md:h-[600px] lg:h-[800px]  flex justify-center items-end lg:-mt-16 md:-top-[430px] lg:flex lg:absolute md:hidden">
+                  <Hero3DElement />
                 </div>
               </div>
             </motion.div>
