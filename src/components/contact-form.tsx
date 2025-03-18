@@ -1,10 +1,9 @@
-"use client"
+"use client";
 
-import type React from "react"
-
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { Send } from "lucide-react"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Send } from "lucide-react";
+import emailjs from "emailjs-com";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -12,19 +11,42 @@ export default function ContactForm() {
     email: "",
     subject: "",
     message: "",
-  })
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    window.alert("Falta fazer né")
-  }
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
+    const userId = process.env.NEXT_PUBLIC_EMAILJS_USER_ID!;
+
+    const templateParams = {
+      from_name: formData.name,
+      email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+    };
+
+    try {
+      await emailjs.send(serviceId, templateId, templateParams, userId);
+      setSubmitted(true);
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      console.error("FAILED...", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -139,6 +161,5 @@ export default function ContactForm() {
         )}
       </div>
     </form>
-  )
+  );
 }
-
