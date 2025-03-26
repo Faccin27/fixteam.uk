@@ -1,0 +1,172 @@
+{
+    "home": {
+      "title": "Automatizando seu futuro",
+      "description": "Somos especialistas em RPA e desenvolvimento web, criando soluções personalizadas para impulsionar a eficiência e o crescimento do seu negócio."
+    },
+    "navbar": [
+        { "label": "Serviços", "link": "/services" },
+        { "label": "Sobre", "link": "/about" },
+        { "label": "Contato", "link": "/contact" }
+    ],
+    "cta": {
+      "ourServices": "Nossos Serviços",
+      "getInTouch": "Entre em Contato",
+      "discoverMore": "Descubra Mais",
+      "getStarted": "Começar Hoje",
+      "learnMore": "Saiba Mais"
+    },
+    "services": {
+      "title": "Nossos Serviços",
+      "description": "Somos especializados em criar soluções personalizadas que automatizam processos e melhoram sua presença online.",
+      "rpa": {
+        "title": "Desenvolvimento de RPA",
+        "description": "Soluções personalizadas de Automação de Processos Robóticos que otimizam suas operações de negócios e reduzem o trabalho manual."
+      },
+      "website": {
+        "title": "Desenvolvimento de Sites",
+        "description": "Sites modernos e responsivos construídos com as mais recentes tecnologias para mostrar sua marca e engajar seu público."
+      },
+      "webApps": {
+        "title": "Aplicações Web",
+        "description": "Aplicações web poderosas que resolvem problemas complexos de negócios e proporcionam experiências de usuário perfeitas."
+      }
+    },
+    "about": {
+      "title": "Quem Somos",
+      "description": "A FixTeam é uma equipe de desenvolvedores apaixonados e especialistas em automação dedicados a ajudar empresas a alavancar a tecnologia para crescer e ter sucesso.",
+      "additionalInfo": "Com anos de experiência em desenvolvimento de RPA e tecnologias web, criamos soluções que não são apenas funcionais, mas também inovadoras e à prova de futuro.",
+      "expertTeam": {
+        "title": "Equipe Especialista",
+        "description": "Profissionais qualificados"
+      },
+      "customSolutions": {
+        "title": "Soluções Personalizadas",
+        "description": "Adaptadas às suas necessidades"
+      }
+    },
+    "process": {
+      "title": "Nosso Processo",
+      "description": "Seguimos uma abordagem estruturada para entregar soluções de alta qualidade que atendam às suas necessidades específicas.",
+      "steps": [
+        {
+          "number": "01",
+          "title": "Descoberta",
+          "description": "Aprendemos sobre seu negócio e requisitos"
+        },
+        {
+          "number": "02",
+          "title": "Planejamento",
+          "description": "Criamos um roteiro detalhado para seu projeto"
+        },
+        {
+          "number": "03",
+          "title": "Desenvolvimento",
+          "description": "Nossa equipe constrói sua solução personalizada"
+        },
+        {
+          "number": "04",
+          "title": "Implantação",
+          "description": "Lançamos e fornecemos suporte contínuo"
+        }
+      ]
+    },
+    "cta_section": {
+      "title": "Pronto para Transformar seu Negócio?",
+      "description": "Vamos discutir como nossos serviços de RPA e desenvolvimento web podem ajudar você a alcançar seus objetivos de negócio.",
+      "button": "Comece Hoje"
+    },
+    "contact": {
+      "title": "Entre em Contato",
+      "description": "Tem um projeto em mente? Entre em contato conosco para discutir como podemos ajudar.",
+      "form": {
+        "getInTouch": "Entre em Contato",
+        "formDescription": "Preencha o formulário e nossa equipe entrará em contato com você em até 24 horas."
+      },
+      "info": {
+        "title": "Nossas Informações",
+        "email": "E-mail",
+        "faq": {
+          "title": "Perguntas Frequentes",
+          "questions": [
+            {
+                "q": "Que tipos de RPAs vocês desenvolvem?",
+                "a": "Desenvolvemos RP"
+            },
+            {
+                "q": "Como posso saber mais sobre nossos projetos?",
+                "a": "Siga nossas redes sociais e fique por dentro de nossos projetos."
+            },
+            {
+                "q": "Como posso garantir que os resultados sejam otimos?",
+                "a": "Vamos monitorar e melhorar o seu negócio constantemente."
+            }
+          ]
+        }
+      }
+    },
+    "contactForm": {
+        "title": "Entre em Contato",
+        "name": {
+            "label": "Seu Nome",
+            "placeholder": "João Silva"
+        },
+        "email": {
+            "label": "Seu E-mail",
+            "placeholder": "joao@exemplo.com"
+        },
+        "subject": {
+            "label": "Assunto",
+            "placeholder": "Selecione um assunto",
+            "options": {
+                "rpa": "Desenvolvimento de RPA",
+                "website": "Desenvolvimento de Site",
+                "inquiry": "Consulta Geral",
+                "partnership": "Parceria"
+            }
+        },
+        "message": {
+            "label": "Sua Mensagem",
+            "placeholder": "Conte-nos sobre o seu projeto..."
+        },
+        "submit": {
+            "button": "Enviar Mensagem",
+            "sending": "Enviando...",
+            "success": "Obrigado! Sua mensagem foi enviada com sucesso."
+        }
+    },
+    "footer": {
+      "description": "Transformando negócios através de automação e desenvolvimento web.",
+      "services": {
+        "title": "Serviços",
+        "items": [
+          "Desenvolvimento de RPA",
+          "Desenvolvimento de Sites",
+          "Aplicações Web",
+          "Automação de Processos",
+          "Soluções Personalizadas"
+        ]
+      },
+      "company": {
+        "title": "Empresa",
+        "items": [
+          "Sobre Nós",
+          "Nossa Equipe",
+          "Carreiras",
+          "Blog",
+          "Contato"
+        ]
+      },
+      "legal": {
+        "title": "Legal",
+        "items": [
+          "Política de Privacidade",
+          "Termos de Serviço",
+          "Política de Cookies",
+          "Conformidade com GDPR",
+          "Mapa do Site"
+        ]
+      },
+      "copyright": "FixTeam. Todos os direitos reservados.",
+      "madeWith": "Feito com ❤️ pela FixTeam"
+    }
+}

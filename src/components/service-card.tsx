@@ -10,9 +10,10 @@ interface ServiceCardProps {
   title: string
   description: string
   delay?: number
+  t: any
 }
 
-export default function ServiceCard({ icon, title, description, delay = 0 }: ServiceCardProps) {
+export default function ServiceCard({ icon, title, t, description, delay = 0 }: ServiceCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -34,7 +35,7 @@ export default function ServiceCard({ icon, title, description, delay = 0 }: Ser
         href="#contact"
         className="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors group/link"
       >
-        Learn More
+        {t.cta.learnMore}
         <ArrowRight size={16} className="ml-2 group-hover/link:translate-x-1 transition-transform" />
       </Link>
     </motion.div>

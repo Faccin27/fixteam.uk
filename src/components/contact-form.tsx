@@ -5,7 +5,12 @@ import { motion } from "framer-motion";
 import { Send } from "lucide-react";
 import emailjs from "emailjs-com";
 
-export default function ContactForm() {
+interface props {
+  t: any;
+}
+
+export default function ContactForm({ t }: props) {
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -51,15 +56,9 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div>
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-300 mb-1"
-          >
-            Your Name
-          </label>
+    <form onSubmit={handleSubmit} className="space-y-8 bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl shadow-2xl">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        <div className="relative">
           <input
             type="text"
             id="name"
@@ -67,17 +66,17 @@ export default function ContactForm() {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-            placeholder="John Doe"
+            className="peer w-full px-4 py-3 bg-transparent border-b-2 border-gray-600 text-gray-100 focus:outline-none focus:border-blue-500 transition-all placeholder-transparent"
+            placeholder={t.contactForm.name.placeholder}
           />
-        </div>
-        <div>
           <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-300 mb-1"
+            htmlFor="name"
+            className="absolute left-4 -top-5 text-sm text-gray-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-blue-500"
           >
-            Your Email
+            {t.contactForm.name.label}
           </label>
+        </div>
+        <div className="relative">
           <input
             type="email"
             id="email"
@@ -85,42 +84,47 @@ export default function ContactForm() {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-            placeholder="john@example.com"
+            className="peer w-full px-4 py-3 bg-transparent border-b-2 border-gray-600 text-gray-100 focus:outline-none focus:border-blue-500 transition-all placeholder-transparent"
+            placeholder={t.contactForm.email.placeholder}
           />
+          <label
+            htmlFor="email"
+            className="absolute left-4 -top-5 text-sm text-gray-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-blue-500"
+          >
+            {t.contactForm.email.label}
+          </label>
         </div>
       </div>
 
-      <div>
-        <label
-          htmlFor="subject"
-          className="block text-sm font-medium text-gray-300 mb-1"
-        >
-          Subject
-        </label>
+      <div className="relative">
         <select
           id="subject"
           name="subject"
           value={formData.subject}
           onChange={handleChange}
           required
-          className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          className="w-full px-4 py-3 bg-transparent border-b-2 border-gray-600 text-gray-100 focus:outline-none focus:border-blue-500 transition-all appearance-none"
         >
-          <option value="">Select a subject</option>
-          <option value="RPA Development">RPA Development</option>
-          <option value="Website Development">Website Development</option>
-          <option value="General Inquiry">General Inquiry</option>
-          <option value="Partnership">Partnership</option>
+          <option value="" disabled className="bg-gray-800">{t.contactForm.subject.placeholder}</option>
+          <option value="RPA Development" className="bg-gray-800">{t.contactForm.subject.options.rpa}</option>
+          <option value="Website Development" className="bg-gray-800">{t.contactForm.subject.options.website}</option>
+          <option value="General Inquiry" className="bg-gray-800">{t.contactForm.subject.options.inquiry}</option>
+          <option value="Partnership" className="bg-gray-800">{t.contactForm.subject.options.partnership}</option>
         </select>
+        <label
+          htmlFor="subject"
+          className="absolute left-4 -top-5 text-sm text-gray-400"
+        >
+          {t.contactForm.subject.label}
+        </label>
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
+          <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+          </svg>
+        </div>
       </div>
 
-      <div>
-        <label
-          htmlFor="message"
-          className="block text-sm font-medium text-gray-300 mb-1"
-        >
-          Your Message
-        </label>
+      <div className="relative">
         <textarea
           id="message"
           name="message"
@@ -128,9 +132,15 @@ export default function ContactForm() {
           onChange={handleChange}
           required
           rows={5}
-          className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-          placeholder="Tell us about your project..."
+          className="w-full px-4 py-3 bg-transparent border-2 border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:border-blue-500 transition-all resize-none"
+          placeholder={t.contactForm.message.placeholder}
         ></textarea>
+        <label
+          htmlFor="message"
+          className="absolute left-4 -top-3 bg-gray-900 px-2 text-sm text-gray-400"
+        >
+          {t.contactForm.message.label}
+        </label>
       </div>
 
       <div>
@@ -138,45 +148,42 @@ export default function ContactForm() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-blue-600/20 border border-blue-500/50 text-blue-300 px-4 py-3 rounded-lg"
+            className="bg-green-600/20 border border-green-500/50 text-green-300 px-4 py-3 rounded-lg"
           >
-            Thank you! Your message has been sent successfully.
+            {t.contactForm.submit.success}
           </motion.div>
         ) : (
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-all flex items-center justify-center ${
+            className={`w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium text-white transition-all flex items-center justify-center ${
               isSubmitting ? "opacity-70 cursor-not-allowed" : ""
             }`}
           >
             {isSubmitting ? (
-              <>
-                <svg
-                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
-                Sending...
-              </>
+              <svg
+                className="animate-spin h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
             ) : (
               <>
-                Send Message
+                {t.contactForm.submit.button}
                 <Send size={18} className="ml-2" />
               </>
             )}

@@ -35,6 +35,15 @@ function AstroBot() {
 
 export default function Hero3DElement() {
   const [loading, setLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+
+    if (window.innerWidth <= 768) {
+      setIsMobile(true);
+    }
+
+  })
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1500);
@@ -67,17 +76,17 @@ export default function Hero3DElement() {
         </div>
       ) : (
         <Canvas camera={{ position: [0, 0, 3], fov: 50 }}>
-          <ambientLight intensity={0.7} />
-          <spotLight
-            position={[10, 10, 10]}
-            angle={0.15}
-            penumbra={1}
-            intensity={1}
-            castShadow
-          />
-          <AstroBot />
-          <OrbitControls enableZoom={false} enablePan={false} />
-          <Environment preset="city" />
+            <ambientLight intensity={0.7} />
+            <spotLight
+              position={[10, 10, 10]}
+              angle={0.15}
+              penumbra={1}
+              intensity={1}
+              castShadow
+            />
+            <AstroBot />
+            {isMobile ? null : <OrbitControls enableZoom={false} enablePan={false} />}
+            <Environment preset="city" />
         </Canvas>
       )}
     </div>

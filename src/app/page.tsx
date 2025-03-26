@@ -19,11 +19,36 @@ import ServiceCard from "@/components/service-card";
 import ContactForm from "@/components/contact-form";
 import Hero3DElement from "@/components/hero-3d-element";
 import img from "@/assets/img.png";
-import geoModule from "@/utils/useGeoLocation";
+import { geoModule, openJSON } from "@/utils/useGeoLocation";
 
 export default function Home() {
+
   const [isVisible, setIsVisible] = useState(false);
-  const { ip, loading, error, country } = geoModule();
+
+  // Criando um loading e a tradução completa!
+  const [loading, setLoading] = useState(true);
+  const [t, setT] : any = useState({});
+
+  // Obtem todos os dados de geo localização e obtem a tradução do país para o idioma escolhido!
+  useEffect(() => {
+
+    if (loading === true){
+
+      const timer = setTimeout(async () => {
+
+        const geoData = await geoModule();
+        const tradutions = await openJSON(geoData.country || "pt-br");
+        
+        setT(tradutions);
+        setLoading(false);
+  
+      }, 30);
+  
+      return () => clearTimeout(timer);
+
+    }
+
+  }, [loading, setLoading, setT]);
 
   useEffect(() => {
     setIsVisible(true);
@@ -34,9 +59,31 @@ export default function Home() {
     visible: { opacity: 1, y: 0 },
   };
 
+  // Loading de tela em quanto carrega todas as traduções do site!
+  if (loading){
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-900">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={fadeIn}
+          transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
+          className="flex flex-col items-center"
+        >
+          <motion.div 
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+            className="w-16 h-16 border-t-4 border-blue-500 border-solid rounded-full"
+          />
+        </motion.div>
+      </div>
+    );
+  }
+
+  // Mostra o conteudo principal
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 overflow-hidden">
-      <Navbar />
+      <Navbar t={t} />
       <section className="relative min-h-screen pt-20 md:pt-0 flex items-center overflow-hidden pb-32 md:pb-16">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-blue-900/10 blur-3xl"></div>
@@ -53,19 +100,18 @@ export default function Home() {
               className="max-w-2xl"
             >
               <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600 ">
-                Automating Your Future
+                {t.home.title}
               </h1>
 
               <p className="text-xl md:text-2xl mb-8 text-gray-300">
-                We build cutting-edge RPAs and websites that transform how
-                businesses operate in the digital world.
+                {t.home.description}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   href="#services"
                   className="px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-all flex items-center justify-center group"
                 >
-                  Our Services
+                  {t.cta.ourServices}
                   <ChevronRight
                     className="ml-2 group-hover:translate-x-1 transition-transform"
                     size={18}
@@ -75,7 +121,7 @@ export default function Home() {
                   href="#contact"
                   className="px-8 py-3 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg font-medium transition-all flex items-center justify-center group"
                 >
-                  Get in Touch
+                  {t.cta.getInTouch}
                   <ChevronRight
                     className="ml-2 group-hover:translate-x-1 transition-transform"
                     size={18}
@@ -90,7 +136,9 @@ export default function Home() {
               transition={{ delay: 0.3, duration: 0.8 }}
               className="w-full lg:w-1/2 relative mb-16 md:mb-0 "
             >
-              <div className="w-full h-full flex justify-center items-center">
+              <div className="w-full h-full flex justify-center items-center" style={{
+                pointerEvents: "none"
+              }}>
                 <div className="w-full h-[450px] md:h-[600px] lg:h-[800px]  flex justify-center items-end lg:-mt-16 md:-top-[430px] lg:flex lg:absolute md:hidden">
                   <Hero3DElement />
                 </div>
@@ -109,7 +157,7 @@ export default function Home() {
             href="#services"
             className="flex flex-col items-center text-gray-400 hover:text-blue-400 transition-colors"
           >
-            <span className="text-sm mb-2">Discover More</span>
+            <span className="text-sm mb-2">{t.cta.discoverMore}</span>
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5 }}
@@ -129,31 +177,33 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold mb-4">Our Services</h2>
+            <h2 className="text-4xl font-bold mb-4">{t.services.title}</h2>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              We specialize in creating custom solutions that automate processes
-              and enhance your online presence.
+              {t.services.description}
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <ServiceCard
               icon={<Robot size={40} />}
-              title="RPA Development"
-              description="Custom Robotic Process Automation solutions that streamline your business operations and reduce manual workload."
+              title={t.services.rpa.title}
+              description={t.services.rpa.description}
               delay={0.1}
+              t={t}
             />
             <ServiceCard
               icon={<Code size={40} />}
-              title="Website Development"
-              description="Modern, responsive websites built with the latest technologies to showcase your brand and engage your audience."
+              title={t.services.website.title}
+              description={t.services.website.description}
               delay={0.3}
+              t={t}
             />
             <ServiceCard
               icon={<Globe size={40} />}
-              title="Web Applications"
-              description="Powerful web applications that solve complex business problems and provide seamless user experiences."
+              title={t.services.webApps.title}
+              description={t.services.webApps.description}
               delay={0.5}
+              t={t}
             />
           </div>
         </div>
@@ -169,16 +219,12 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               className="lg:w-1/2"
             >
-              <h2 className="text-4xl font-bold mb-6">Who We Are</h2>
+              <h2 className="text-4xl font-bold mb-6">{t.about.title}</h2>
               <p className="text-xl text-gray-300 mb-6">
-                FixTeam is a team of passionate developers and automation
-                experts dedicated to helping businesses leverage technology to
-                grow and succeed.
+                {t.about.description}
               </p>
               <p className="text-lg text-gray-400 mb-8">
-                With years of experience in RPA development and web
-                technologies, we create solutions that are not just functional
-                but also innovative and future-proof.
+                {t.about.additionalInfo}
               </p>
               <div className="flex items-center space-x-6">
                 <div className="flex items-center">
@@ -186,8 +232,8 @@ export default function Home() {
                     <Users size={24} />
                   </div>
                   <div className="ml-4">
-                    <h4 className="font-bold">Expert Team</h4>
-                    <p className="text-gray-400">Skilled professionals</p>
+                    <h4 className="font-bold">{t.about.expertTeam.title}</h4>
+                    <p className="text-gray-400">{t.about.expertTeam.description}</p>
                   </div>
                 </div>
                 <div className="flex items-center">
@@ -195,8 +241,8 @@ export default function Home() {
                     <Code size={24} />
                   </div>
                   <div className="ml-4">
-                    <h4 className="font-bold">Custom Solutions</h4>
-                    <p className="text-gray-400">Tailored to your needs</p>
+                    <h4 className="font-bold">{t.about.customSolutions.title}</h4>
+                    <p className="text-gray-400">{t.about.customSolutions.description}</p>
                   </div>
                 </div>
               </div>
@@ -209,13 +255,13 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               className="lg:w-1/2 relative"
             >
-              <div className="relative z-10 rounded-lg overflow-hidden shadow-2xl">
+              <div className="relative z-10 rounded-lg overflow-hidden flex items-center justify-center">
                 <Image
-                  src={img || "/placeholder.svg"}
+                  src={"/tecnop.png"}
                   alt="FixTeam Team"
                   width={800}
-                  height={600}
-                  className="w-full h-auto rounded-xs"
+                  height={800}
+                  className="w-100 h-100 rounded-xs object-cover"
                 />
               </div>
               <div className="absolute -bottom-6 -right-6 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl z-0"></div>
@@ -234,36 +280,14 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold mb-4">Our Process</h2>
+            <h2 className="text-4xl font-bold mb-4">{t.process.title}</h2>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              We follow a structured approach to deliver high-quality solutions
-              that meet your specific requirements.
+              {t.process.description}
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                number: "01",
-                title: "Discovery",
-                description: "We learn about your business and requirements",
-              },
-              {
-                number: "02",
-                title: "Planning",
-                description: "We create a detailed roadmap for your project",
-              },
-              {
-                number: "03",
-                title: "Development",
-                description: "Our team builds your custom solution",
-              },
-              {
-                number: "04",
-                title: "Deployment",
-                description: "We launch and provide ongoing support",
-              },
-            ].map((step, index) => (
+            {t.process.steps.map((step : any, index : number) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -299,18 +323,17 @@ export default function Home() {
             className="max-w-4xl mx-auto text-center"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Ready to Transform Your Business?
+              {t.cta_section.title}
             </h2>
             <p className="text-xl text-gray-300 mb-8">
-              Let&apos;s discuss how our RPA and web development services can
-              help you achieve your business goals.
+              {t.cta_section.description}
             </p>
 
             <Link
               href="#contact"
               className="px-8 py-4 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium text-lg transition-all inline-flex items-center group"
             >
-              Get Started Today
+              {t.cta_section.button}
               <ChevronRight
                 className="ml-2 group-hover:translate-x-1 transition-transform"
                 size={20}
@@ -329,10 +352,9 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold mb-4">Contact Us</h2>
+            <h2 className="text-4xl font-bold mb-4">{t.contact.title}</h2>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Have a project in mind? Get in touch with us to discuss how we can
-              help.
+              {t.contact.description}
             </p>
           </motion.div>
 
@@ -343,13 +365,12 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h3 className="text-2xl font-bold mb-6">Get in Touch</h3>
+              <h3 className="text-2xl font-bold mb-6">{t.contact.form.getInTouch}</h3>
               <p className="text-gray-300 mb-8">
-                Fill out the form and our team will get back to you within 24
-                hours.
+                {t.contact.form.formDescription}
               </p>
 
-              <ContactForm />
+              <ContactForm t={t} />
             </motion.div>
 
             <motion.div
@@ -357,9 +378,9 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="bg-gray-900 p-8 rounded-lg border border-gray-700"
+              className="bg-gray-900 p-8 rounded-lg shadow-lg"
             >
-              <h3 className="text-2xl font-bold mb-6">Our Information</h3>
+              <h3 className="text-2xl font-bold mb-6">{t.contact.info.title}</h3>
 
               <div className="space-y-6">
                 <div className="flex items-start">
@@ -375,19 +396,10 @@ export default function Home() {
 
                 <div className="mt-8 pt-8 border-t border-gray-700">
                   <h4 className="font-bold text-lg mb-4">
-                    Frequently Asked Questions
+                    {t.contact.info.faq.title}
                   </h4>
                   <div className="space-y-4">
-                    {[
-                      {
-                        q: "What types of RPAs do you develop?",
-                        a: "We develop RPAs for various business processes including data entry, document processing, and workflow automation.",
-                      },
-                      {
-                        q: "How long does a typical project take?",
-                        a: "Project timelines vary based on complexity, but most projects are completed within 4-12 weeks.",
-                      },
-                    ].map((faq, index) => (
+                    {t.contact.info.faq.questions.map((faq : any, index : number) => (
                       <div key={index} className="pb-4">
                         <h5 className="font-bold text-gray-200">{faq.q}</h5>
                         <p className="text-gray-400 mt-1">{faq.a}</p>
@@ -400,7 +412,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <Footer />
+      <Footer t={t} />
     </div>
   );
 }

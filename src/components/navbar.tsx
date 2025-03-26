@@ -4,12 +4,19 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, ChevronRight } from "lucide-react"
+import { useTranslations } from "use-intl"
 
-export default function Navbar() {
+interface props {
+  t: any;
+}
+
+export default function Navbar({ t } : props) {
+  
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
+    
     const handleScroll = () => {
       if (window.scrollY > 10) {
         setScrolled(true)
@@ -20,14 +27,8 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
 
-  const navLinks = [
-    { name: "Home", href: "#" },
-    { name: "Services", href: "#services" },
-    { name: "About", href: "#about" },
-    { name: "Contact", href: "#contact" },
-  ]
+  }, [])
 
   return (
     <header
@@ -36,23 +37,24 @@ export default function Navbar() {
         ? "bg-black/20 backdrop-blur-lg py-4 shadow-cyan-500/40 shadow-lg" 
         : "bg-transparent py-6"}`}
   >
-      
+    
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <Link href="/" className="text-2xl font-bold text-white flex items-cent">
-          <span className="text-blue-500">Fix</span>Team
+        
+        <Link href="/">
+          <img src="/logo.png" width={150} height={150}></img>
         </Link>
 
         <nav className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link, index) => (
-            <Link key={index} href={link.href} className="text-gray-300 hover:text-blue-400 transition-colors">
-              {link.name}
+          {t.navbar.map((link : any, index : number) => (
+            <Link key={index} href={link.link} className="text-gray-300 hover:text-blue-400 transition-colors">
+              {link.label}
             </Link>
           ))}
           <Link
             href="#contact"
             className="px-5 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-all flex items-center"
           >
-            Get Started
+            {t.cta.getStarted}
             <ChevronRight className="ml-1" size={16} />
           </Link>
         </nav>
@@ -74,14 +76,14 @@ export default function Navbar() {
 
             <div className="container mx-auto px-4 py-4">
               <nav className="flex flex-col space-y-4">
-                {navLinks.map((link, index) => (
+                {t.navbar.map((link : any, index : number) => (
                   <Link
                     key={index}
-                    href={link.href}
+                    href={link.link}
                     className="text-gray-300 hover:text-blue-400 transition-colors py-2"
                     onClick={() => setIsOpen(false)}
                   >
-                    {link.name}
+                    {link.label}
                   </Link>
                 ))}
                 <Link
@@ -89,7 +91,7 @@ export default function Navbar() {
                   className="px-5 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-all flex items-center justify-center"
                   onClick={() => setIsOpen(false)}
                 >
-                  Get Started
+                  {t.cta.getStarted}
                   <ChevronRight className="ml-1" size={16} />
                 </Link>
               </nav>

@@ -4,38 +4,47 @@ import axios from 'axios';
 interface GeoLocation {
   ip: string | null;
   country: string | null;
-  loading: boolean;
   error: string | null;
 }
 
-const useGeoLocation = (): GeoLocation => {
-  const [ip, setIp] = useState<string | null>(null);
-  const [country, setCountry] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+// Função que vai abrir o JSON com as traduções usando a pasta publica do projeto!
+export async function openJSON(locale : string) : Promise<any> {
 
-  useEffect(() => {
-    const getGeoLocation = async () => {
-      try {
-        const ipResponse = await axios.get('https://api.ipify.org?format=json');
-        const userIp = ipResponse.data.ip;
-        setIp(userIp);
+  let location : string = "";
 
-        const geoResponse = await axios.get(`https://api.ipstack.com/${userIp}?access_key=b13c8a904f9e5be1c980d8bb948217ba`);
-        const countryname = geoResponse.data.country_name;
-        setCountry(countryname)
+  if (locale === "BR") location = "pt-br";
+  else location = "en";
 
-      } catch (err: any) {
-        setError(err.message || 'Erro desconhecido');
-      } finally {
-        setLoading(false);
-      }
-    };
+  const response = await fetch(`/locales/${location}.json`);
+  return await response.json();
 
-    getGeoLocation();
-  }, []);
+}
 
-  return { ip, country, loading, error };
-};
+export async function geoModule() : Promise<GeoLocation> {
 
-export default useGeoLocation;
+  try {
+
+    // Obtendo apenas o IP do usuário
+    const location = await axios.get("https://api.ipify.org?format=json");
+
+    // Obtendo todos os dados geográficos do IP
+    const geoLocation = await axios.get(`https://ipinfo.io/${location.data.ip}/json`);
+
+    return {
+      ip: geoLocation.data.ip,
+      country: geoLocation.data.country,
+      error: null
+    }
+
+  }
+  catch (error) {
+
+    return {
+      ip: null,
+      country: "EN",
+      error: 'Não foi possível identificar seu endereço IP'
+    }
+
+  }
+
+}
