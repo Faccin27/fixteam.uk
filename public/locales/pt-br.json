@@ -4,9 +4,9 @@
       "description": "Somos especialistas em RPA e desenvolvimento web, criando soluções personalizadas para impulsionar a eficiência e o crescimento do seu negócio."
     },
     "navbar": [
-        { "label": "Serviços", "link": "/services" },
-        { "label": "Sobre", "link": "/about" },
-        { "label": "Contato", "link": "/contact" }
+        { "label": "Serviços", "link": "#services" },
+        { "label": "Sobre", "link": "#about" },
+        { "label": "Contato", "link": "#contact" }
     ],
     "cta": {
       "ourServices": "Nossos Serviços",
