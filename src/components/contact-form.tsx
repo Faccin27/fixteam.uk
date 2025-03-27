@@ -5,21 +5,62 @@ import { motion } from "framer-motion";
 import { Send } from "lucide-react";
 import emailjs from "emailjs-com";
 
-interface props {
-  t: any;
+// Definição da interface para as props de tradução
+interface ContactFormProps {
+  t: {
+    contactForm: {
+      name: {
+        label: string;
+        placeholder: string;
+      };
+      email: {
+        label: string;
+        placeholder: string;
+      };
+      subject: {
+        label: string;
+        placeholder: string;
+        options: {
+          rpa: string;
+          website: string;
+          inquiry: string;
+          partnership: string;
+        };
+      };
+      message: {
+        label: string;
+        placeholder: string;
+      };
+      submit: {
+        button: string;
+        success: string;
+      };
+    };
+  };
 }
 
-export default function ContactForm({ t }: props) {
+// Definição do tipo de dados do formulário
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
 
-  const [formData, setFormData] = useState({
+export default function ContactForm({ t }: ContactFormProps) {
+  // Estado para gerenciar os dados do formulário
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     subject: "",
     message: "",
   });
+
+  // Estados para controle de submissão
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+  // Função para lidar com mudanças nos campos do formulário
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -27,6 +68,51 @@ export default function ContactForm({ t }: props) {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Função para enviar dados para o webhook do Discord
+  const sendToDiscordWebhook = async (formData: FormData) => {
+    const discordWebhookUrl = process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL;
+
+    if (!discordWebhookUrl) {
+      console.error("Discord webhook URL is not set");
+      return;
+    }
+
+    try {
+      const response = await fetch(discordWebhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          embeds: [{
+            title: '📩 Novo Contato Recebido!',
+            color: 3447003,
+            fields: [
+              { name: '👤 Nome', value: formData.name, inline: true },
+              { name: '📧 E-mail', value: formData.email, inline: true },
+              { name: '📝 Assunto', value: formData.subject, inline: false },
+              { name: '💬 Mensagem', value: formData.message, inline: false }
+            ],
+            image: {
+              url: 'https://media.discordapp.net/attachments/1350902210753728677/1352686135171743834/logo.png?ex=67e6d3a2&is=67e58222&hm=67f04eb9c1df9d6c7aa46171191f3df57d15fc3a7728a74ab615dbf00109a016&=&format=webp&quality=lossless&width=968&height=968'
+            },
+            footer: {
+              text: 'FixTeam.uk',
+              link: "https://fixteam.uk",
+              icon_url: 'https://media.discordapp.net/attachments/1354483563646681161/1354886163936186368/tecnop.png?ex=67e6eb92&is=67e59a12&hm=0f52e7a0776feb766f69a5cefcaa624b792811d97a6429da76502751d6f1add2&=&format=webp&quality=lossless&width=399&height=350' 
+            }
+          }]
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Falha ao enviar mensagem para o Discord');
+      }
+    } catch (error) {
+      console.error("Erro ao enviar mensagem para o Discord:", error);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -46,10 +132,13 @@ export default function ContactForm({ t }: props) {
 
     try {
       await emailjs.send(serviceId, templateId, templateParams, userId);
+      
+      await sendToDiscordWebhook(formData);
+
       setSubmitted(true);
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
-      console.error("FAILED...", error);
+      console.error("Falha no envio...", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -76,6 +165,7 @@ export default function ContactForm({ t }: props) {
             {t.contactForm.name.label}
           </label>
         </div>
+
         <div className="relative">
           <input
             type="email"
