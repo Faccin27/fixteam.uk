@@ -1,40 +1,47 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, ChevronRight, Globe } from "lucide-react"
-import { openJSON } from "@/utils/useGeoLocation"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ChevronRight, Globe } from 'lucide-react';
+import { openJSON } from "@/utils/useGeoLocation";
 
 interface Props {
-  t: any
-  setT?: (translations: any) => void
-  currentLanguage?: string
-  setCurrentLanguage?: (lang: string) => void
+  t: any;
+  setT?: (translations: any) => void;
+  currentLanguage?: string;
+  setCurrentLanguage?: (lang: string) => void;
 }
 
 export default function Navbar({ t, setT, currentLanguage = "BR", setCurrentLanguage }: Props) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const [langMenuOpen, setLangMenuOpen] = useState(false)
+  
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10)
-    }
+      setScrolled(window.scrollY > 10);
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const toggleLanguage = async (lang: string) => {
     if (setT && setCurrentLanguage) {
-      const translations = await openJSON(lang)
-      setT(translations) // Atualizando a tradução do site!
-      setCurrentLanguage(lang) // Atualizando o estado do idioma!
-      setLangMenuOpen(false) // Fechar o menu de idioma!
+      const translations = await openJSON(lang);
+      setT(translations); // Atualizando a tradução do site!
+      setCurrentLanguage(lang); // Atualizando o estado do idioma!
+      
+      // Salvando a preferência do usuário no localStorage
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('preferredLanguage', lang);
+      }
+      
+      setLangMenuOpen(false); // Fechar o menu de idioma!
     }
-  }
+  };
 
   return (
     <header
@@ -97,10 +104,7 @@ export default function Navbar({ t, setT, currentLanguage = "BR", setCurrentLang
 
         <div className="md:hidden flex items-center">
           {/* Botão de idioma - Mobile */}
-          <button
-            onClick={() => setLangMenuOpen(!langMenuOpen)}
-            className="text-gray-300 hover:text-white mr-4 flex items-center"
-          >
+          <button onClick={() => setLangMenuOpen(!langMenuOpen)} className="text-gray-300 hover:text-white mr-4 flex items-center">
             <Globe size={20} />
           </button>
 
@@ -176,6 +180,5 @@ export default function Navbar({ t, setT, currentLanguage = "BR", setCurrentLang
         )}
       </AnimatePresence>
     </header>
-  )
+  );
 }
-
