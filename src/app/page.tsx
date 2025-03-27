@@ -18,7 +18,6 @@ import Footer from "@/components/footer";
 import ServiceCard from "@/components/service-card";
 import ContactForm from "@/components/contact-form";
 import Hero3DElement from "@/components/hero-3d-element";
-import img from "@/assets/img.png";
 import { geoModule, openJSON } from "@/utils/useGeoLocation";
 
 export default function Home() {
