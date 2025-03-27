@@ -24,12 +24,29 @@ export default function Home() {
   useEffect(() => {
     if (loading === true) {
       const timer = setTimeout(async () => {
-        const geoData = await geoModule()
-        const country = geoData.country || "BR"
-        const tradutions = await openJSON(country)
+        // Primeiro verificamos se há uma preferência salva no localStorage
+        let language = "BR"
+
+        if (typeof window !== "undefined") {
+          const savedLanguage = localStorage.getItem("preferredLanguage")
+          if (savedLanguage) {
+            // Se houver uma preferência salva, usamos ela
+            language = savedLanguage
+          } else {
+            // Caso contrário, usamos a geolocalização
+            const geoData = await geoModule()
+            language = geoData.country || "BR"
+          }
+        } else {
+          // Fallback para servidor ou ambientes sem localStorage
+          const geoData = await geoModule()
+          language = geoData.country || "BR"
+        }
+
+        const tradutions = await openJSON(language)
 
         setT(tradutions)
-        setCurrentLanguage(country) // Set the initial language based on geolocation
+        setCurrentLanguage(language)
         setLoading(false)
       }, 30)
 
