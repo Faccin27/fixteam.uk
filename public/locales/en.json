@@ -1,7 +1,7 @@
 {
     "home": {
-      "title": "Transforming Businesses with Automation and Web Development",
-      "description": "We are experts in RPA and web development, creating customized solutions to boost your business efficiency and growth."
+      "title": "Automating Your Future",
+      "description": "We build cutting-edge RPAs and websites that transform how businesses operate in the digital world."
     },
     "navbar": [
         { "label": "Services", "link": "#services" },
