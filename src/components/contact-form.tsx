@@ -130,9 +130,7 @@ export default function ContactForm({ t }: ContactFormProps) {
       message: formData.message,
     };
 
-    try {
-      await emailjs.send(serviceId, templateId, templateParams, userId);
-      
+    try {      
       await sendToDiscordWebhook(formData);
 
       setSubmitted(true);
